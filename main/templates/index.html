@@ -48,6 +48,7 @@
                 <a href="{% url 'user-profile' x.author.id %}" style="text-decoration: none; color: black;">
                     <span class="card-title" style="margin-left: 5px;">{{ x.author }}</span>
                 </a>
+                <a href="{% url 'post-detail' x.id %}"><img style="width:250px;max-width:50%" src="{% static 'images/stars.png' %}"></a>
             </div>
             <p class="card-text"><small class="text-muted">{{ x.date }}</small></p>
             {% if x.author == user %}
@@ -55,14 +56,20 @@
                     <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-edit' x.id %}">Edit</a>
                     <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' x.id %}">Delete</a>
                 </div>
-            {% endif %}
-          <a href="{% url 'post-detail' x.id %}"><p class="card-text">{{ x.body }}</p></a>
+            {% endif %}          
         </div>
         <div class="carousel">
             <div class="carousel-inner">
                 {% if x.img %}
-                <div class="carousel-item active">
-                    <a href="{% url 'post-detail' x.id %}"><img src="{{ x.img.url }}" class="d-block w-100" alt="Slide 1"></a>
+                <div class="carousel-item active w-100">
+                    <div class="row">
+                        <div class="col-md-3">                          
+                          <a href="{% url 'post-detail' x.id %}"><img src="{{ x.img.url }}" class="d-block w-100" alt="Slide 1"></a>
+                        </div>
+                        <div class="col-md">
+                            <a href="{% url 'post-detail' x.id %}" class="card-text">{{ x.body | safe}}</a>
+                        </div>
+                      </div>
                 </div>
                 {% endif %}
             </div>
